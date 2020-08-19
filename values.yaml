@@ -1,0 +1,10 @@
+contributions_list:
+  - image: flogo-aws
+    tag: 36
+  - image: flogo-awsec2
+    tag: 37
+  - image: flogo-awskinesis
+    tag: 18
+  - image: flogo-chargify
+    tag: 19
+

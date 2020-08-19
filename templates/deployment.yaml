@@ -1,0 +1,26 @@
+{{- range $contribution := .Values.contributions_list }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: container-image-extractor
+  namespace: local-tibco-tci
+  labels:
+    app.cloud.tibco.com/name: container-image-extractor
+spec:
+  backoffLimit: 0
+  template:
+    metadata:
+      labels:
+        app.cloud.tibco.com/name: container-image-extractor
+    spec:
+      nodeSelector:
+        kubernetes.io/os: linux
+      restartPolicy: Never
+      containers:
+      - name: container-image-extractor
+        image: reldocker.tibco.com/stratosphere/container-image-extractor
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: SOURCE_DOCKER_IMAGE
+          value: "{{ $contribution.image }}:{{ $contribution.tag }}"
+{{- end }}
